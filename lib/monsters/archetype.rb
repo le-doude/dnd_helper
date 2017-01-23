@@ -1,12 +1,14 @@
 module Monsters
   class Archetype
 
-    def initialize(options)
+    attr :name
 
+    def initialize(name, options = {})
+      @name = name
     end
 
     def instanciate(options= {})
-      Monster.new
+      Monster.new(name, **options)
     end
   end
 end
