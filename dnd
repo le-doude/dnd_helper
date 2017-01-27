@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'commands'
+
+string = gets
+result = Commands.parse string
+
+puts result

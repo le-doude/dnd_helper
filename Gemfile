@@ -2,6 +2,7 @@
 source "https://rubygems.org"
 
 # gem "rails"
-
-gem 'commander'
 gem 'dicebag'
+gem 'byebug'
+
+gemspec
