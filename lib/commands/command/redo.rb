@@ -1,3 +1,5 @@
+require 'commands/command'
+
 module Commands
   class Command
     class Redo

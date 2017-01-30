@@ -1,8 +1,22 @@
 #!/usr/bin/env ruby
 
+require 'bundler/setup'
+
 require 'commands'
 
-string = gets
-result = Commands.parse string
+def exit_command?
+  !!(/^\s*exit/ =~ @last_command)
+end
 
-puts result
+@parser = Commands.parser
+puts "Welcome to dnd helper v0.1"
+puts "What should we do first?"
+loop do
+  print '#>'
+  @last_command = gets
+  action = @parser.parse @last_command
+  puts action
+  break if exit_command?
+end
+
+exit

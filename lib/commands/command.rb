@@ -14,5 +14,5 @@ module Commands
 end
 
 Dir['./lib/commands/command/**/*.rb'].each do |name|
-  require name.chomp.gsub(/\.rb$/)
+  require name.chomp.gsub(/\.rb$/, '')
 end
