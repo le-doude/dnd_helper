@@ -1,4 +1,5 @@
 require 'commands/command'
+require 'actions/system'
 
 module Commands
   class Parser
@@ -17,12 +18,15 @@ module Commands
       if result
         command_name, param_string = result.captures
         mandatory, options = _parse_params(param_string)
+        options = options.map { |k, v| [k.to_sym, v] }.to_h
         klass = @available_commands[command_name.downcase]
         if klass.is_a?(Class)
           instance = klass.instance if klass.respond_to?(:instance)
           instance ||= klass.new
           instance.call(*mandatory, **options)
         end
+      else
+        Actions::System::CouldNotParse.new(command)
       end
     end
 
@@ -36,8 +40,7 @@ module Commands
 
     def _compile_command_parser
       @regexp ||= begin
-        commands_regex = Regexp.new(@available_commands.keys.join('|'))
-        /^\s*(#{commands_regex})\s+([\w\s]+)$/
+        /^\s*(\w+)\s+([\w\s=:]+)$/
       end
     end
 
