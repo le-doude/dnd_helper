@@ -14,8 +14,12 @@ puts "What should we do first?"
 loop do
   print '#>'
   @last_command = gets
-  action = @parser.parse @last_command
+  puts @last_command
+  action = @parser.parse(@last_command)
   puts action
+  action.confirmation?
+  action.apply
+  puts action.log
   break if exit_command?
 end
 

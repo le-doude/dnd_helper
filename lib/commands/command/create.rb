@@ -1,4 +1,5 @@
 require 'commands/command'
+require 'actions/create_monster'
 
 module Commands
   class Command
@@ -7,8 +8,7 @@ module Commands
           return unless type
           case type.downcase.to_sym
           when :monster
-            # Monster.archetype(subtype.downcase).create(params)
-            :monster
+            Actions::CreateMonster.new(subtype, **params)
           else
             :not_found
           end
