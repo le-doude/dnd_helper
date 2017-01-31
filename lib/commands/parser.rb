@@ -18,7 +18,6 @@ module Commands
       if result
         command_name, param_string = result.captures
         mandatory, options = _parse_params(param_string)
-        options = options.map { |k, v| [k.to_sym, v] }.to_h
         klass = @available_commands[command_name.downcase]
         if klass.is_a?(Class)
           instance = klass.instance if klass.respond_to?(:instance)
@@ -54,7 +53,7 @@ module Commands
       mandatory = bits.take_while { |s| (/#{BASIC_ASSIGNEMENT_OPERATOR}/ =~ s).nil? } || []
       options = bits[mandatory.size..-1].map do |s|
         h, *t = s.split(BASIC_ASSIGNEMENT_OPERATOR)
-        [h, (t && !t.empty?) ? t.join('_') : true]
+        [h.to_sym, (t && !t.empty?) ? t.join('_') : true]
       end.to_h || {}
       [mandatory, options]
     end
