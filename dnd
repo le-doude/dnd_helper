@@ -3,23 +3,23 @@
 require 'bundler/setup'
 
 require 'commands'
+require 'readline'
 
-def exit_command?
-  !!(/^\s*exit/ =~ @last_command)
+def exit_command?(line)
+  line.nil? || !!(/^\s*exit/ =~ line)
 end
 
 @parser = Commands.parser
 puts "Welcome to dnd helper v0.1"
 puts "What should we do first?"
 loop do
-  print '#>'
-  @last_command = gets
-  break unless @last_command
-  action = @parser.parse(@last_command)
+  line = Readline::readline('> ')
+  break if exit_command?(line)
+  action = @parser.parse(line)
   action.confirmation?
   action.apply
   puts action.log
-  break if exit_command?
+  Readline::HISTORY.push(line)
 end
 
 exit

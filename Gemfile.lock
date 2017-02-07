@@ -13,6 +13,7 @@ GEM
       parslet (~> 1.4, >= 1.4.0)
     parslet (1.7.1)
       blankslate (>= 2.0, <= 4.0)
+    rb-readline (0.5.3)
 
 PLATFORMS
   ruby
@@ -22,6 +23,7 @@ DEPENDENCIES
   byebug
   dicebag
   dndhelper!
+  rb-readline
 
 BUNDLED WITH
    1.13.7
